@@ -83,7 +83,25 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
     
+    while(1) {
+        printf("\n------Waiting for new connection------\n\n");
+        
+        
+        if((new_socket = accept(server_fd,(struct sockaddr *)&address, (socklen_t*)&addrlen))<0) {
+           perror("In accept");
+           exit(EXIT_FAILURE);
+        }
+        
+        /*** 4. sending & receiving messages ***/
+        
+        char buffer[30000] = {0};
+        valread = read(new_socket,buffer,30000);
+        printf("%s\n",buffer);
+        write(new_socket,hello,strlen(hello));
+        printf("------message sent from server------");
+        // closing a socket once done communicating
+        close(new_socket);
+    }
+    return 0;
 }    
-
-
 
