@@ -35,6 +35,8 @@ int main(int argc, char const *argv[])
     // defined in the header netinet/in.h
     struct sockaddr_in address;
     int addrlen = sizeof(address);
+ 
+    
     
     char *hello = "Hello from server";
 
