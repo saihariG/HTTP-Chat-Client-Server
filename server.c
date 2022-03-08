@@ -36,10 +36,19 @@ int main(int argc, char const *argv[])
     struct sockaddr_in address;
     int addrlen = sizeof(address);
  
+    /*** HTTP header to make server work ***/
     
+    // 1. HTTP/1.1 200 ok (version, status code, message)
+    // 2. Content-Type : type of message server is sending
+    // 3. Content-Length : number of bytes server is sending
     
-    char *hello = "Hello from server";
-
+   /* printf("Enter Message to Send : ");
+    char message[100];
+    scanf("%s",message); */
+    int len = 23;     
+    
+    char *hello = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: len\n\nHello World From Server";
+    
     /*** 1. Creating a Socket ***/    
     
     // socket system call
