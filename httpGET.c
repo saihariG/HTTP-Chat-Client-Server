@@ -80,8 +80,8 @@ int main(int argc, char const *argv[])
     // htons converts a short integer(port) to a network representation  
     
     memset(address.sin_zero, '\0', sizeof address.sin_zero);
-    
-    
+    int on = 1;
+    setsockopt (server_fd , SOL_SOCKET, SO_REUSEADDR, &on, sizeof (int)); 
     if (bind(server_fd, (struct sockaddr *)&address, sizeof(address))<0)
     {
         perror("In bind");
