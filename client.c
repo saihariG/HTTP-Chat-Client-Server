@@ -14,7 +14,10 @@ int main(int argc,char const *argv[]) {
     long valread;
     // defined in the header netinet/in.h
     struct sockaddr_in serv_addr;
-    char *hello = "hello from Client";
+    printf("Enter Message : ");
+    char ch;
+    scanf("%s",&ch);
+    char *hello = &ch;
     char buffer[1024] = {0};
     
     // creating a socket

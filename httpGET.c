@@ -42,13 +42,17 @@ int main(int argc, char const *argv[])
     // 2. Content-Type : type of message server is sending
     // 3. Content-Length : number of bytes server is sending
     
-   /* printf("Enter Message to Send : ");
-    char message[100];
-    scanf("%s",message); */
-    int len = 23;     
+    //int len = 23;     
     
-    char *hello = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: len\n\nHello World From Server";
+    char *hello = "HTTP/1.1 200 OK\nContent-Type: text/plain\nContent-Length: 23\n\nHello World From Server";
     
+    /*
+    printf("Enter Message to send : ");
+    char ch;
+    scanf("%s",&ch);
+    char *hello = &ch; */
+    
+   
     /*** 1. Creating a Socket ***/    
     
     // socket system call
