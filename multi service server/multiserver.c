@@ -12,9 +12,14 @@ pthread_mutex_t mutex;
 int clients[20];
 
 // receiving data from client socket
-void *recvmg(void *client_sock) {
-
-
+void *recvmg(void *client_socket) {
+    int sock = *((int *)client_socket);
+    char msg[200];
+    int len;
+    while((len = recv(sock,msg,200,0)) > 0) {
+        msg[len] = '';
+        broadcastAll(msg,sock);   
+    }
 }
 
 int main() {
