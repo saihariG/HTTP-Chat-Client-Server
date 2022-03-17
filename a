@@ -1,0 +1,89 @@
+[33mcommit f502ea3e52b9351281bcf0a80c98e86ba8497b7e[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 15:44:42 2022 +0530
+
+    receiving data from client socket
+
+[33mcommit f97e3438664b90e5f4ca1917a3290bcdc2b4eda6[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 14:04:19 2022 +0530
+
+    accepting incoming connections from client
+
+[33mcommit b2a38eb08e7fd68c9c46275d3e20ed83bffe4675[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 13:37:14 2022 +0530
+
+    server binding & listening for incoming connections
+
+[33mcommit 119511285f0e30d737713552d8d06bdaf1dd32f1[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 13:18:52 2022 +0530
+
+    created socket for server
+
+[33mcommit 9c10e46cf9d194d659150ffcb712e859c3ce1bf2[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 13:04:35 2022 +0530
+
+    unstaged files
+
+[33mcommit 8a205c74601885df90302c6a6e0ad33a6f95100d[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 13:02:06 2022 +0530
+
+    ignored?
+
+[33mcommit b924aed63973d8b7b3d7bd16886d2e05c056f417[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 12:57:28 2022 +0530
+
+    testing gitignore
+
+[33mcommit 4c620569b14ffd3ac29d2ed8c0144b1f1f95d6d8[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 12:48:31 2022 +0530
+
+    added gitignore
+
+[33mcommit bdd5a2b214088988d509c5f44269c86bbbb90f3f[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Thu Mar 17 10:42:35 2022 +0530
+
+    multi service server
+
+[33mcommit e0d46c7a3207184d9ec6c95472b01bd8c5b4a3e7[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Wed Mar 16 13:02:06 2022 +0530
+
+    single client
+
+[33mcommit 6cdc0c02dd53b3c76b0f1c84d43ebe5903a114f2[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Wed Mar 16 10:32:05 2022 +0530
+
+    GET request in HTTP
+
+[33mcommit 7579eaae1bf79a57d82c2322c0cf0361f8c6ff77[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Tue Mar 8 16:30:18 2022 +0530
+
+    Implemented HTTP Server
+
+[33mcommit d1e08bdc61ea1df2bc2c43538517993cefc9e754[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Mon Mar 7 12:17:41 2022 +0530
+
+    implemented connection b/w TCP server-client
+
+[33mcommit 818a0cc73301782dfbc0b09434ca93a33d4b2eb6[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Fri Mar 4 20:19:46 2022 +0530
+
+    Implemented TCP server side
+
+[33mcommit 229b6437d485bce1063e5009cdf9c58b76cc1079[m
+Author: saihariG <krishnansaihari@gmail.com>
+Date:   Wed Mar 2 17:39:09 2022 +0530
+
+    initial commit

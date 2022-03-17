@@ -10,6 +10,7 @@
 pthread_mutex_t mutex;
 // maximum number of clients that can be handled
 int clients[20];
+int n = 0;
 
 // receiving data from client socket
 void *recvmg(void *client_socket) {
@@ -20,6 +21,24 @@ void *recvmg(void *client_socket) {
         msg[len] = '';
         broadcastAll(msg,sock);   
     }
+}
+
+void broadcastAll(char *msg,int sock) {
+     // thread locking using mutex to ensure synchronization of shared resources    
+     pthread_mutex_lock(&mutex);
+     
+     for(int i = 0  ; i  <  n ;  i++) {
+         if(clients[i] != sock) {
+            // sending messages to all clients
+            if(send(clients[i],msg,strlen(msg),0) < 0) {
+               printf("failed to send");
+               continue;
+            }
+         } 
+     }    
+     
+     // unlocking the thread once the job is finished
+     pthread_mutex_unlock(&mutex);
 }
 
 int main() {
@@ -62,6 +81,7 @@ int main() {
           }
       
           pthread_mutex_lock(&mutex);
+          
           clients[n] = client_socket;
           n++;
           // creating a thread for each client
