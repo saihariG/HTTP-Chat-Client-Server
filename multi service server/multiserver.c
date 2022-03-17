@@ -22,24 +22,26 @@ int main() {
       // socket creation
       sock = socket(AF_INET, SOCK_STREAM,0);
       
+      if(bind(sock,(struct sockaddr *)&server_ip,sizeof(server_ip)) == -1) {
+         printf("binding error!\n");
+      }
+      else {
+         printf("server started...\n");
+      } 
+      
+      // listen system call tells a socket that it should accepting incoming connections
+    // 2nd param : maximum number of pending connections 
+      if(listen(sock,20) == -1) {
+         printf("listening failed for incoming connections");
+      }
+
+      // infinite loop for broadcasting messages
+      while(1) {
+          
+          
       
       
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      } 
 }
 
 
