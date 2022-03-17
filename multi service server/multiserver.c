@@ -4,6 +4,19 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
+/*** globals ***/
+
+// for multithreading
+pthread_mutex_t mutex;
+// maximum number of clients that can be handled
+int clients[20];
+
+// receiving data from client socket
+void *recvmg(void *client_sock) {
+
+
+}
+
 int main() {
 
       struct sockaddr_in server_ip;
@@ -37,10 +50,19 @@ int main() {
 
       // infinite loop for broadcasting messages
       while(1) {
-          
-          
+     
+          // accepting incoming connections from client
+          if((client_socket == accept(sock,(struct sockaddr *)NULL,NULL)) < 0) {
+              printf("failed  to accept connections\n");
+          }
       
+          pthread_mutex_lock(&mutex);
+          clients[n] = client_socket;
+          n++;
+          // creating a thread for each client
+          pthread_create(&recvt,NULL,(void *)recvmg,&client_socket);
       
+          pthread_mutex_unlock(&mutex); 
       } 
 }
 
