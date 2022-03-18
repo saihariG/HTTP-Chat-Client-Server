@@ -7,6 +7,19 @@
 #include <pthreaed.h>
 #include <errno.h>
 
+/*** globals ***/
+char msg[500];
+
+void *recvmg(void *client_socket) {
+     int sock = *((int *)client_socket);
+     int len;
+     
+     // client thread waiting to receive message
+     while((len = recv(sock,msg,500,0)) > 0) {
+         msg[len] = '';
+         fputs(msg,stdout);
+     }
+}
 
 int main(int argc,char *argv[]) {
    
