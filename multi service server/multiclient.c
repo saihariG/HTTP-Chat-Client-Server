@@ -11,6 +11,7 @@ char msg[500];
 
 void *recvmg(void *my_sock)
 {
+        //int count = 1;
 	int sock = *((int *)my_sock);
 	int len;
 	// client thread always ready to receive message
@@ -18,16 +19,15 @@ void *recvmg(void *my_sock)
 	        
                 msg[len] = '\0';
                 printf("response from server -\t");
-		fputs(msg,stdout);
-		
+	 	 fputs(msg,stdout);
+	 	  	
 	}
 }
 
-void POST(int clientfd,char msg[]) {
+void POST(int clientfd,char *msg) {
   
-    char data[100];
+    char data[100] = {0}; 
     strcpy(data,msg);
-    printf("message : %s",data);
     char XmlRequest[250]= {0};
     char ServiceMethod[]= "multiserver.c";
     char request[150]= {0};
@@ -35,25 +35,18 @@ void POST(int clientfd,char msg[]) {
     char port[] = "8080";
     
     sprintf(request,"http://%s:%s/%s HTTP/1.1",hostIp,port,ServiceMethod);
-    //printf("Method and Resource path is below:\n\n\n");
-    //printf("%s",request);
-    
+       
     strcat(hostIp,":");
     strcat(hostIp,port);
     
-    //printf("\n\nHOST header is below:\n\n\n");
-    //printf("%s",hostIp);
-    
+
     snprintf(XmlRequest,(size_t)"POST %s\r\nHost: %s\r\nContent-Type: text/plain\r\nContent-Length: %d\r\n\r\n%s\r\n",request,hostIp,strlen(data),data);
-    printf("\nPOST Request sent to the server:");
-    //printf("%s\n",aszXmlRequest);
-    
+           
     char req[1000] = {0};
     
     sprintf(req,"POST %s\r\n",XmlRequest);
 
     strcat(req,data);
-    printf("%s\t",req);
     send(clientfd,req,strlen(req),0); 
 }
 

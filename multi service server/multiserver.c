@@ -23,7 +23,7 @@ void sendtoall(char *msg,int sock){
 				printf("failed to send\n");
 				continue;
 			}else {
-			       printf("\nresponse sent from server\n");
+			       printf("\nresponse sent from server\n\n");
 			}
 		}
 	}
@@ -38,7 +38,7 @@ void *recvmg(void *client_sock){
 	char msg[500];
 	int len;
 	while((len = recv(sock,msg,500,0)) > 0) {
-	        printf("request received from client\n");
+	        printf("request received from client");
 		msg[len] = '\0';
 		sendtoall(msg,sock);
 	}
