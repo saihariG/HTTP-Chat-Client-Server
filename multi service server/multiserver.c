@@ -12,17 +12,6 @@ pthread_mutex_t mutex;
 int clients[20];
 int n = 0;
 
-// receiving data from client socket
-void *recvmg(void *client_socket) {
-    int sock = *((int *)client_socket);
-    char msg[200];
-    int len;
-    while((len = recv(sock,msg,200,0)) > 0) {
-        msg[len] = '';
-        broadcastAll(msg,sock);   
-    }
-}
-
 void broadcastAll(char *msg,int sock) {
      // thread locking using mutex to ensure synchronization of shared resources    
      pthread_mutex_lock(&mutex);
@@ -41,10 +30,22 @@ void broadcastAll(char *msg,int sock) {
      pthread_mutex_unlock(&mutex);
 }
 
+
+// receiving data from client socket
+void *recvmg(void *client_socket) {
+    int sock = *((int *)client_socket);
+    char msg[200];
+    int len;
+    while((len = recv(sock,msg,200,0)) > 0) {
+        msg[len] = '\0';
+        broadcastAll(msg,sock);   
+    }
+}
+
 int main() {
 
       struct sockaddr_in server_ip;
-      pthread recvt;
+      pthread_t recvt;
 
       // initializing socket       
       int sock = 0 , client_socket = 0;

@@ -68,9 +68,17 @@ int main(int argc,char *argv[]) {
          len = write(sock,sent_msg,strlen(sent_msg));
          if(len < 0) {
              printf("\nfailed to send\n");
-         } 
-      
+         }      
     } 
     
-
+    // closing the socket
+    pthread_join(recvt,NULL);   
+    close(sock);
+    return 0;
 }
+
+
+
+
+
+
