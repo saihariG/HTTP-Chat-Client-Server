@@ -58,14 +58,19 @@ int main(int argc,char *argv[]) {
     // client thread creation to receive message
     pthread_create(&recvt,NULL,(void *)recvmg,&sock);     
 
-
-
-
-
-
-
-
-
-
+    // reading a message from console
+    while(fgets(msg,500,stdin) > 0) { 
+         // copying client's name
+         strcpy(sent_msg,client_name);
+         strcat(sent_msg,":");
+         // concatenating the  msg to be printed
+         strcat(sent_msg,msg);  
+         len = write(sock,sent_msg,strlen(sent_msg));
+         if(len < 0) {
+             printf("\nfailed to send\n");
+         } 
+      
+    } 
+    
 
 }
