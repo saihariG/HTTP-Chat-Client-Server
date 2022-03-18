@@ -9,7 +9,7 @@
 
 
 int main(int argc,char *argv[]) {
-
+   
     pthread_t recvt;
     
     int len, sock;
@@ -20,6 +20,7 @@ int main(int argc,char *argv[]) {
        return 1;
     }	      
 
+    char sent_msg[500];
     // since we have multiple clients
     char client_name[100];
     strcpy(client_name,argv[1]);   
@@ -35,8 +36,14 @@ int main(int argc,char *argv[]) {
 
     // special ip address
     server_ip.sin_addr.s_addr = inet_addr("127.0.0.1");
-
-
+    
+    /*** socket connection ***/
+    if((connect(sock,(struct sockaddr *)&server_ip,sizeof(server_ip))) == -1) {
+        printf("\nsocket connection failed");
+    }
+    
+    // client thread creation to receive message
+    pthread_create(&recvt,NULL,(void *)recvmg,&sock);     
 
 
 
