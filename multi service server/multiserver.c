@@ -20,8 +20,10 @@ void sendtoall(char *msg,int sock){
 		if(clients[i] != sock) {
 		       // sending messages to all clients
 			if(send(clients[i],msg,strlen(msg),0) < 0) {
-				printf("sending failure \n");
+				printf("failed to send\n");
 				continue;
+			}else {
+			       printf("\nresponse sent from server\n");
 			}
 		}
 	}
@@ -36,6 +38,7 @@ void *recvmg(void *client_sock){
 	char msg[500];
 	int len;
 	while((len = recv(sock,msg,500,0)) > 0) {
+	        printf("request received from client\n");
 		msg[len] = '\0';
 		sendtoall(msg,sock);
 	}
@@ -75,7 +78,7 @@ int main(){
 	while(1){
 	        // accepting incoming connections from client
 		if( (Client_sock = accept(sock, (struct sockaddr *)NULL,NULL)) < 0 )
-			printf("accept failed  n");
+			printf("accept failed\n");
 		pthread_mutex_lock(&mutex);
 		clients[n]= Client_sock;
 		n++;
