@@ -24,6 +24,12 @@ void *recvmg(void *my_sock)
 }
 
 int main(int argc,char *argv[]){
+
+        if (argc != 2) {
+           fprintf(stderr, "USAGE: ./a.out <client name>\n");
+           return 1;
+        }  
+
 	pthread_t recvt;
 	int len;
 	int sock;
