@@ -67,7 +67,7 @@ int main() {
       } 
       
       // listen system call tells a socket that it should accepting incoming connections
-    // 2nd param : maximum number of pending connections 
+      // 2nd param : maximum number of pending connections 
       if(listen(sock,20) == -1) {
          printf("listening failed for incoming connections");
       }
@@ -90,5 +90,4 @@ int main() {
           pthread_mutex_unlock(&mutex); 
       } 
 }
-
 
