@@ -26,8 +26,9 @@ void *recvmg(void *my_sock)
 
 void POST(int clientfd,char *msg) {
   
-    char data[100] = {0}; 
+    char data[100]; 
     strcpy(data,msg);
+    //printf("passed msg : %s",data);
     char XmlRequest[250]= {0};
     char ServiceMethod[]= "multiserver.c";
     char request[150]= {0};
@@ -44,9 +45,10 @@ void POST(int clientfd,char *msg) {
            
     char req[1000] = {0};
     
-    sprintf(req,"POST %s\r\n",XmlRequest);
+    sprintf(req,"POST %s\t",XmlRequest);
 
     strcat(req,data);
+    printf("post req to send is : %s",req);
     send(clientfd,req,strlen(req),0); 
 }
 
@@ -89,16 +91,18 @@ int main(int argc,char *argv[]){
 		}
 	        // copying clients name
 		strcpy(send_msg,client_name);
-		strcat(send_msg,":");
+		strcat(send_msg,":"); // client1:
 		// concatenating the  msg to be printed
-		strcat(send_msg,msg);
+		strcat(send_msg,msg); // client1 : hi
 		len = write(sock,send_msg,strlen(send_msg));
-		POST(sock,send_msg);
-		if(len < 0) 
+		//printf("message to be posted : %s",msg);
+		POST(sock,msg); 
+		if(len < 0) {
 			printf("\nfailed to send\n");
+		}
 	}
 	
-	//thread is closed
+
 	pthread_join(recvt,NULL);
 	close(sock);
 	return 0;

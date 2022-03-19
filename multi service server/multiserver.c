@@ -40,6 +40,7 @@ void *recvmg(void *client_sock){
 	while((len = recv(sock,msg,500,0)) > 0) {
 	        printf("request received from client");
 		msg[len] = '\0';
+		printf("\nprinted message : %s",msg);
 		sendtoall(msg,sock);
 	}
 	
