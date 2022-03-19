@@ -32,16 +32,84 @@ void sendtoall(char *msg,int sock){
 	pthread_mutex_unlock(&mutex);
 }
 
+void header(int handler, int status) {
+  char header[100] = {0};
+  if (status == 0) {
+    sprintf(header, "HTTP/1.0 200 OK\r\n\r\n");
+  } else if (status == 1) {
+    sprintf(header, "HTTP/1.0 403 Forbidden\r\n\r\n");
+  } else {
+    sprintf(header, "HTTP/1.0 404 Not Found\r\n\r\n");
+  }
+  printf("response - %s\n",header);
+  send(handler, header, strlen(header), 0);
+}
+
+char *parse(char *req) {
+  
+  char buf[100]; 
+  strcpy(buf,req);
+  char *method;
+  
+  int handler = 0;
+  
+  method = strtok(buf, " ");
+  //printf("method : %s\n",method);
+  //if (strcmp(method, "POST") != 0) return 1;
+
+   int count = 1;
+   while (method != NULL) {
+        if (count == 1) {
+         printf("method is - %s\n", method);
+         if(strcmp(method,"POST") != 0) break;
+         method = strtok(NULL, " ");
+         count++;
+        }
+        else if(count == 2) {
+         printf("header is - %s\n", method); 
+         
+         if(strcmp(method,"http://localhost:8080/multiserver.c") != 0) { 
+            header(handler,2);
+            break;
+         }
+            
+         method = strtok(NULL, " ");
+         count++;
+        }
+        else if(count == 3){
+            printf("protocol is : %s\n",method);
+            
+            if(strcmp(method,"HTTP/1.1") != 0) {
+                header(handler,1);
+                break;
+            }else {
+                header(handler,0);
+            }
+               
+            method = strtok(NULL," ");
+            count++;
+        }
+        else{
+            printf("message is - %s\n",method);
+            return (char *)method;
+        }
+    } 
+    return (char *)"";
+}
+
+
 // receiving data from client socket
 void *recvmg(void *client_sock){
 	int sock = *((int *)client_sock);
 	char msg[500];
 	int len;
+	char *pmsg;
 	while((len = recv(sock,msg,500,0)) > 0) {
 	        printf("request received from client");
 		msg[len] = '\0';
-		printf("\nprinted message : %s",msg);
-		sendtoall(msg,sock);
+		printf("\nprinted message - %s",msg);
+		pmsg = parse(msg);
+		sendtoall(pmsg,sock);
 	}
 	
 }

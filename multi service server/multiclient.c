@@ -45,7 +45,7 @@ void POST(int clientfd,char *msg) {
            
     char req[1000] = {0};
     
-    sprintf(req,"POST %s\t",XmlRequest);
+    sprintf(req,"POST %s ",XmlRequest);
 
     strcat(req,data);
     printf("post req to send is : %s",req);
