@@ -48,14 +48,11 @@ void header(int handler, int status) {
   }
 }
 
-char *parse(char *req) {
+char *parse(char *req,int handler) {
   
   char buf[100]; 
   strcpy(buf,req);
   char *method;
-  
-  int handler = 0;
-  
  
    method = strtok(buf, " ");
    //printf("method : %s\n",method);
@@ -116,7 +113,7 @@ void *recvmg(void *client_sock){
 	        printf("request received from client");
 		msg[len] = '\0';
 		printf("\nprinted message - %s",msg);
-		pmsg = parse(msg);
+		pmsg = parse(msg,sock);
 		sendtoall(pmsg,sock);
 	}
 	
