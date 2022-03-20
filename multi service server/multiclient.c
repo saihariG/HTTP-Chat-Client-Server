@@ -19,7 +19,7 @@ void *recvmg(void *my_sock)
 	        
                 msg[len] = '\0';
                 printf("response from server -\t");
-	 	 fputs(msg,stdout);
+	 	fputs(msg,stdout);
 	 	  	
 	}
 }

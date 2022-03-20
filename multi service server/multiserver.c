@@ -14,6 +14,7 @@ int n=0;
 
 void sendtoall(char *msg,int sock){
 	int i;
+	//printf("broadcast message : %s\n",msg);
 	// thread locking using mutex to ensure synchronization of shared resources    
 	pthread_mutex_lock(&mutex);
 	for(i = 0; i < n; i++) {
@@ -42,7 +43,9 @@ void header(int handler, int status) {
     sprintf(header, "HTTP/1.0 404 Not Found\r\n\r\n");
   }
   printf("response - %s\n",header);
-  send(handler, header, strlen(header), 0);
+  if(send(handler, header, strlen(header), 0) < 0) {
+     printf("couldn't send status code\n"); 
+  }
 }
 
 char *parse(char *req) {
@@ -53,15 +56,21 @@ char *parse(char *req) {
   
   int handler = 0;
   
-  method = strtok(buf, " ");
-  //printf("method : %s\n",method);
-  //if (strcmp(method, "POST") != 0) return 1;
-
+ 
+   method = strtok(buf, " ");
+   //printf("method : %s\n",method);
+   //if (strcmp(method, "POST") != 0) return 1;
+  
    int count = 1;
    while (method != NULL) {
         if (count == 1) {
          printf("method is - %s\n", method);
-         if(strcmp(method,"POST") != 0) break;
+         
+         if(strcmp(method,"POST") != 0) {
+             //printf("method is not post");
+             break;
+         }
+         
          method = strtok(NULL, " ");
          count++;
         }
@@ -82,19 +91,18 @@ char *parse(char *req) {
             if(strcmp(method,"HTTP/1.1") != 0) {
                 header(handler,1);
                 break;
-            }else {
-                header(handler,0);
             }
-               
+                
             method = strtok(NULL," ");
             count++;
         }
         else{
+            header(handler,0);
             printf("message is - %s\n",method);
             return (char *)method;
         }
     } 
-    return (char *)"";
+    return (char *)method;
 }
 
 
