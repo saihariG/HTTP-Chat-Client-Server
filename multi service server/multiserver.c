@@ -19,12 +19,13 @@ void sendtoall(char *msg,int sock){
 	pthread_mutex_lock(&mutex);
 	for(i = 0; i < n; i++) {
 		if(clients[i] != sock) {
+		       //printf("broad - %s",msg);
 		       // sending messages to all clients
 			if(send(clients[i],msg,strlen(msg),0) < 0) {
 				printf("failed to send\n");
 				continue;
 			}else {
-			       printf("response sent from server\n\n");
+			   	//printf("response sent from server\n\n");    
 			}
 		}
 	}
@@ -109,10 +110,11 @@ void *recvmg(void *client_sock){
 	int len;
 	char *pmsg;
 	while((len = recv(sock,msg,500,0)) > 0) {
-	        printf("request received from client : ");
+	        //printf("request received from client : ");
 		msg[len] = '\0';
-		printf("%s",msg);
+		//printf("%s",msg);
 		pmsg = parse(msg,sock);
+		//printf("parsed msg : %s",pmsg);
 		sendtoall(pmsg,sock);
 	}
 	
