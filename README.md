@@ -15,3 +15,5 @@ gcc multiclient.c -pthread
 ```
 ## Happy Chatting !
 
+![chat](https://user-images.githubusercontent.com/52252342/159180079-8c0608fc-174c-4ba2-b90c-e93d5d7db417.gif)
+
