@@ -24,7 +24,7 @@ void sendtoall(char *msg,int sock){
 				printf("failed to send\n");
 				continue;
 			}else {
-			       printf("\nresponse sent from server\n\n");
+			       printf("response sent from server\n\n");
 			}
 		}
 	}
@@ -42,7 +42,7 @@ void header(int handler, int status) {
   } else {
     sprintf(header, "HTTP/1.0 404 Not Found\r\n\r\n");
   }
-  printf("response - %s\n",header);
+  //printf("response - %s\n",header);
   if(send(handler, header, strlen(header), 0) < 0) {
      printf("couldn't send status code\n"); 
   }
@@ -61,10 +61,9 @@ char *parse(char *req,int handler) {
    int count = 1;
    while (method != NULL) {
         if (count == 1) {
-         printf("method is - %s\n", method);
+         //printf("method is - %s\n", method);
          
          if(strcmp(method,"POST") != 0) {
-             //printf("method is not post");
              break;
          }
          
@@ -72,7 +71,7 @@ char *parse(char *req,int handler) {
          count++;
         }
         else if(count == 2) {
-         printf("header is - %s\n", method); 
+         //printf("header is - %s\n", method); 
          
          if(strcmp(method,"http://localhost:8080/multiserver.c") != 0) { 
             header(handler,2);
@@ -83,7 +82,7 @@ char *parse(char *req,int handler) {
          count++;
         }
         else if(count == 3){
-            printf("protocol is : %s\n",method);
+            //printf("protocol is : %s\n",method);
             
             if(strcmp(method,"HTTP/1.1") != 0) {
                 header(handler,1);
@@ -95,7 +94,7 @@ char *parse(char *req,int handler) {
         }
         else{
             header(handler,0);
-            printf("message is - %s\n",method);
+            //printf("message is - %s\n",method);
             return (char *)method;
         }
     } 
@@ -110,9 +109,9 @@ void *recvmg(void *client_sock){
 	int len;
 	char *pmsg;
 	while((len = recv(sock,msg,500,0)) > 0) {
-	        printf("request received from client");
+	        printf("request received from client : ");
 		msg[len] = '\0';
-		printf("\nprinted message - %s",msg);
+		printf("%s",msg);
 		pmsg = parse(msg,sock);
 		sendtoall(pmsg,sock);
 	}
@@ -160,6 +159,7 @@ int main(){
 		pthread_create(&recvt,NULL,(void *)recvmg,&Client_sock);
 		pthread_mutex_unlock(&mutex);
 	}
+	
 	return 0; 
 	
 }
