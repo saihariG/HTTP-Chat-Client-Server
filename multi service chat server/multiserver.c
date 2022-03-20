@@ -109,11 +109,24 @@ void *recvmg(void *client_sock){
 	char msg[500];
 	int len;
 	char *pmsg;
+	
+	int c = 0;
+	
 	while((len = recv(sock,msg,500,0)) > 0) {
 	        //printf("request received from client : ");
 		msg[len] = '\0';
-		//printf("%s",msg);
+		//printf("msg %s",msg);
 		pmsg = parse(msg,sock);
+		if((strncmp(msg,"/exit",5)) == 0) {
+		   //printf("client exit");
+		  /* if(c == 0) {
+		     printf("inside c == 0");
+		     int index = pmsg[6] - '0';
+		     //printf("index %d",index);
+		     //clients[index] = 0;
+		     c = 1; 
+		   } */
+		}
 		//printf("parsed msg : %s",pmsg);
 		sendtoall(pmsg,sock);
 	}
@@ -162,6 +175,5 @@ int main(){
 		pthread_mutex_unlock(&mutex);
 	}
 	
-	return 0; 
-	
+	return 0; 	
 }

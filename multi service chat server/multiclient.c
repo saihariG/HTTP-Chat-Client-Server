@@ -18,7 +18,7 @@ void *recvmg(void *my_sock)
 	while((len = recv(sock,msg,500,0)) > 0) {
 	        
                 msg[len] = '\0';
-                printf("response from server -\t");
+                //printf("response from server - ");
 	 	fputs(msg,stdout);
 	 	  	
 	}
@@ -85,7 +85,8 @@ int main(int argc,char *argv[]){
 	
 	//ready to read a message from console
 	while(fgets(msg,500,stdin) > 0) {
-	        if ((strncmp(msg, "exit", 4)) == 0) {
+	        if ((strncmp(msg, "/exit", 5)) == 0) {
+	                send(sock,msg,strlen(msg),0); 
 			printf("client Exit...\n");
 			return -1;
 		}
