@@ -3,6 +3,8 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <pthread.h>
+#include <netinet/in.h>
+#include <unistd.h>
 
 /*** globals ***/
 
@@ -109,7 +111,8 @@ void *recvmg(void *client_sock){
 	char msg[500];
 	int len;
 	char *pmsg;
-	
+	//char str1[5];
+	//char str2[5];
 	int c = 0;
 	
 	while((len = recv(sock,msg,500,0)) > 0) {
@@ -117,15 +120,10 @@ void *recvmg(void *client_sock){
 		msg[len] = '\0';
 		//printf("msg %s",msg);
 		pmsg = parse(msg,sock);
+		// closing the socket if client disconnects
 		if((strncmp(msg,"/exit",5)) == 0) {
-		   //printf("client exit");
-		  /* if(c == 0) {
-		     printf("inside c == 0");
-		     int index = pmsg[6] - '0';
-		     //printf("index %d",index);
-		     //clients[index] = 0;
-		     c = 1; 
-		   } */
+		     clients[sock] = 0;
+		     close(sock); 
 		}
 		//printf("parsed msg : %s",pmsg);
 		sendtoall(pmsg,sock);
