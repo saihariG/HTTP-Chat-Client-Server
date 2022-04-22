@@ -1,6 +1,6 @@
 # HTTP chat client-server pair in C
 
-## setup
+## setup [Ubuntu]
 
 First compile & Run the server 
 ```
